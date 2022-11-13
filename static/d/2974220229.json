@@ -1,0 +1,1 @@
+{"errors":[{"message":"Invalid flags supplied to RegExp constructor 'profile.png'","locations":[{"line":10,"column":3}],"path":["avatar"]}],"data":{"avatar":null,"site":{"siteMetadata":{"author":"[sangyeon217]","introduction":"I'm a constant learner.","social":{"twitter":"","github":"sangyeon217","medium":"","facebook":"","linkedin":"","instagram":""}}}}}
