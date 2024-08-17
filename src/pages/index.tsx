@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { PageProps, graphql } from "gatsby";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import Introduction from "../components/main/Introduction";
 import Category from "../components/main/Category";
+import PostItem from "../components/main/PostItem";
 
 export default function Index({
   data: {
@@ -41,11 +43,23 @@ export default function Index({
         handleSelect={handleSelectCategory}
       />
 
-      {posts.map(({ title, slug, date }) => (
-        <div key={slug}>
-          {title} / {date} / {slug}
-        </div>
-      ))}
+      <div
+        style={{ display: "flex", flexWrap: "wrap", gap: 20, marginTop: 40 }}
+      >
+        {posts.map(
+          ({ title, category, slug, date, thumbnail, description }) => (
+            <PostItem
+              title={title as string}
+              date={date as string}
+              category={category as string[]}
+              thumbnail={thumbnail?.gatsbyImageData as IGatsbyImageData}
+              description={description?.description as string}
+              slug={slug as string}
+              key={slug}
+            />
+          ),
+        )}
+      </div>
     </>
   );
 }
@@ -58,6 +72,12 @@ export const query = graphql`
         category
         slug
         date
+        thumbnail {
+          gatsbyImageData(width: 500)
+        }
+        description {
+          description
+        }
       }
     }
   }
