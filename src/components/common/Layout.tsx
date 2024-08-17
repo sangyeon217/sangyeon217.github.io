@@ -6,8 +6,6 @@ type LayoutProps = {
 };
 
 const GlobalStyle = createGlobalStyle`
-  @import url('<https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css>');
-
   * {
     margin: 0;
     padding: 0;
