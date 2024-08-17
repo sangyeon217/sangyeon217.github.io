@@ -1,4 +1,5 @@
 import { GatsbySSR } from "gatsby";
+import Layout from "./src/components/common/Layout";
 
 const HeadComponents = [
   <link
@@ -14,4 +15,11 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setHeadComponents,
 }) => {
   setHeadComponents(HeadComponents);
+};
+
+export const wrapPageElement: GatsbySSR["wrapPageElement"] = ({
+  element,
+  props,
+}) => {
+  return <Layout {...props}>{element}</Layout>;
 };
