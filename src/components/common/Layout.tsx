@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import Header from "./Header";
 
 type LayoutProps = {
   children: ReactNode;
@@ -38,6 +39,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <Wrapper>
       <GlobalStyle />
+      <Header />
       <Contents>{children}</Contents>
     </Wrapper>
   );
