@@ -1,4 +1,9 @@
+import { ReactNode } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+
+type LayoutProps = {
+  children: ReactNode;
+};
 
 const GlobalStyle = createGlobalStyle`
   @import url('<https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css>');
@@ -27,10 +32,15 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-export default function Layout() {
+const Contents = styled.div`
+  margin: 80px 0;
+`;
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <Wrapper>
       <GlobalStyle />
+      <Contents>{children}</Contents>
     </Wrapper>
   );
 }
