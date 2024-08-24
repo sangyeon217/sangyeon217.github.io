@@ -15,6 +15,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.22.9",
+    "@contentful/rich-text-types": "^16.8.3",
     "@egjs/react-infinitegrid": "^4.12.0",
     "babel-plugin-styled-components": "^2.1.4",
     "dotenv": "^16.4.5",
