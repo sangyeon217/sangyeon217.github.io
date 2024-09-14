@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 const Wrapper = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  background-color: white;
 `;
 
 const Title = styled(Link)`
@@ -34,7 +38,7 @@ const Menu = styled.div`
 export default function Header() {
   return (
     <Wrapper>
-      <Title to="/">Sangyeon Song</Title>
+      <Title to="/">Sangyeon's Tech Blog</Title>
 
       <Menu>
         <a
