@@ -17,8 +17,7 @@ const Wrapper = styled.footer`
 export default function Footer() {
   return (
     <Wrapper>
-      <div>Thank You for Visiting My Tech Blog, Have an Awesome Day 😊</div>
-      <div>Copyright © 2024 Sangyeon Song</div>
+      <div>Copyright © 2024 All rights reserved by Sangyeon Song</div>
     </Wrapper>
   );
 }
