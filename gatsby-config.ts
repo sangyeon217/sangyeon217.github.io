@@ -7,8 +7,8 @@ const SITE_URL = `https://sangyeon217.github.io`;
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Sangyeon Tech Blog`,
-    description: "상연의 테크 블로그 입니다.",
+    title: `Sangyeon's Tech Blog`,
+    description: "상연의 기술 블로그 입니다.",
     siteUrl: SITE_URL,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
