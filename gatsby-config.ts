@@ -18,6 +18,12 @@ const config: GatsbyConfig = {
   jsxRuntime: "automatic",
   plugins: [
     {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        icon: "src/images/favicon.png",
+      },
+    },
+    {
       resolve: "gatsby-source-contentful",
       options: {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
