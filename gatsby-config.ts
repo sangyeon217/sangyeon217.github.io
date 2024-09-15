@@ -18,10 +18,12 @@ const config: GatsbyConfig = {
   jsxRuntime: "automatic",
   plugins: [
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: "gatsby-source-filesystem",
       options: {
-        icon: "src/images/favicon.png",
+        name: "images",
+        path: "./src/images/",
       },
+      __key: "images",
     },
     {
       resolve: "gatsby-source-contentful",
@@ -43,19 +45,24 @@ const config: GatsbyConfig = {
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        icon: "src/images/favicon.png",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-gtag",
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_ID,
+        head: true,
+      },
+    },
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-sitemap",
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "images",
-        path: "./src/images/",
-      },
-      __key: "images",
-    },
   ],
 };
 
