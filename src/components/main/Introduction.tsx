@@ -47,8 +47,10 @@ export default function Introduction() {
         <StaticImage src="../../images/profile.png" alt="Profile Image" />
       </ProfileImage>
 
-      <SubText>Nice to Meet You!</SubText>
-      <MainText>I&apos;m Software QA Engineer Sangyeon Song</MainText>
+      <SubText>안녕하세요, Software QA Engineer 송상연 입니다.</SubText>
+      <MainText>
+        막연히 알고 있다고 생각한 것을 구체화하기 위해 기록합니다.
+      </MainText>
     </div>
   );
 }
