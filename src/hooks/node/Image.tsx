@@ -9,6 +9,7 @@ type ImageProps = {
 const Component = styled(GatsbyImage)`
   width: 100%;
   margin: 30px 0;
+  border-radius: 8px;
 
   & + & {
     margin: -20px 0 30px 0;
