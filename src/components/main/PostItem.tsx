@@ -108,11 +108,11 @@ export default function PostItem({
 
       <Contents>
         <Title>{title}</Title>
-        <Date>{date}</Date>
+        <Description>{description}</Description>
         <Category>
           {category?.map((category) => <div key={category}>#{category}</div>)}
         </Category>
-        <Description>{description}</Description>
+        <Date>{date}</Date>
       </Contents>
     </Wrapper>
   );
