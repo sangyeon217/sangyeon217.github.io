@@ -15,7 +15,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Pretendard';
   }
 
-  html,
+  html {
+    scroll-padding-top: 80px;  /* 앵커링 시 플로팅 헤더 높이 고려 */
+  }
+  
   body,
   #___gatsby,
   #gatsby-focus-wrapper {

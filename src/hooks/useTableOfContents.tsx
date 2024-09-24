@@ -38,19 +38,24 @@ export default function useTableOfContents(rawContent: string) {
   }, [rawContent]);
 
   useEffect(() => {
+    const headerElement = document.querySelector("#header");
+    const stickyHeaderHeight = headerElement
+      ? headerElement.getBoundingClientRect().height
+      : 0;
+
     const observer = new IntersectionObserver(
       (entries) =>
         setActiveId((prevId) => {
-          // 스크롤을 아래로 내리는 경우
-          if (entries[0].boundingClientRect.top < 0)
+          if (entries[0].boundingClientRect.top < stickyHeaderHeight)
+            // 스크롤을 아래로 내리는 경우
             return entries[0].target.id;
-          // 스크롤을 위로 올리는 경우
           else {
+            // 스크롤을 위로 올리는 경우
             const index = toc.findIndex(({ id }) => id === prevId);
             return index > 0 ? toc[index - 1].id : null;
           }
         }),
-      { rootMargin: "0% 0px -100% 0px" },
+      { rootMargin: `-${stickyHeaderHeight}px 0px -100% 0px` },
     );
 
     document

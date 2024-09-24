@@ -37,7 +37,7 @@ const Menu = styled.div`
 
 export default function Header() {
   return (
-    <Wrapper>
+    <Wrapper id="header">
       <Title to="/">Sangyeon's Tech Blog</Title>
 
       <Menu>
