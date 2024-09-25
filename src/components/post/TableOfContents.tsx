@@ -30,7 +30,7 @@ const Items = styled.div`
 `;
 
 const Item = styled(({ className, children, to }: GatsbyLinkProps<unknown>) => (
-  <Link to={to} className={className}>
+  <Link to={to} onClick={(e) => handleScroll(e, to)} className={className}>
     {children}
   </Link>
 ))<{ $depth: number; $focused: boolean }>`
@@ -42,6 +42,29 @@ const Item = styled(({ className, children, to }: GatsbyLinkProps<unknown>) => (
   text-decoration: none;
   transition: 0.1s all;
 `;
+
+const handleScroll = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  targetId: string,
+) => {
+  e.preventDefault();
+
+  const headerElement = document.querySelector("#header");
+  const stickyHeaderHeight = headerElement
+    ? headerElement.getBoundingClientRect().height
+    : 0;
+
+  const target = document.querySelector(targetId);
+  if (!target) return;
+
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.scrollY - stickyHeaderHeight;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+};
 
 export default function TableOfContents({
   content: { raw },
