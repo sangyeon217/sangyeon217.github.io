@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GatsbyLinkProps, Link } from "gatsby";
 import useTableOfContents from "../../hooks/useTableOfContents";
+import { scrollToAnchor } from "../../utils/scroll";
 
 type TableOfContentsProps = {
   content: Queries.ContentfulPostContent;
@@ -43,27 +44,9 @@ const Item = styled(({ className, children, to }: GatsbyLinkProps<unknown>) => (
   transition: 0.1s all;
 `;
 
-const handleScroll = (
-  e: React.MouseEvent<HTMLAnchorElement>,
-  targetId: string,
-) => {
+const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
   e.preventDefault();
-
-  const headerElement = document.querySelector("#header");
-  const stickyHeaderHeight = headerElement
-    ? headerElement.getBoundingClientRect().height
-    : 0;
-
-  const target = document.querySelector(targetId);
-  if (!target) return;
-
-  const elementPosition = target.getBoundingClientRect().top;
-  const offsetPosition = elementPosition + window.scrollY - stickyHeaderHeight;
-
-  window.scrollTo({
-    top: offsetPosition,
-    behavior: "smooth",
-  });
+  scrollToAnchor(to.substring(1));
 };
 
 export default function TableOfContents({

@@ -1,12 +1,29 @@
+import { useEffect } from "react";
 import { HeadFC, HeadProps, PageProps, graphql } from "gatsby";
 import { IGatsbyImageData } from "gatsby-plugin-image";
 import PostHead from "../components/post/PostHead";
 import PostBody from "../components/post/PostBody";
 import SEO from "../components/common/Seo";
+import { scrollToAnchor } from "../utils/scroll";
 
 export default function Post({
   data: { contentfulPost },
 }: PageProps<Queries.PostPageQuery>) {
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        scrollToAnchor(hash.substring(1));
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange();
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
   return (
     <>
       <PostHead
