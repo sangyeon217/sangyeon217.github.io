@@ -44,18 +44,16 @@ export default function useTableOfContents(rawContent: string) {
       : 0;
 
     const observer = new IntersectionObserver(
-      (entries) =>
-        setActiveId((prevId) => {
-          if (entries[0].boundingClientRect.top < stickyHeaderHeight)
-            // 스크롤을 아래로 내리는 경우
-            return entries[0].target.id;
-          else {
-            // 스크롤을 위로 올리는 경우
-            const index = toc.findIndex(({ id }) => id === prevId);
-            return index > 0 ? toc[index - 1].id : null;
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
           }
-        }),
-      { rootMargin: `-${stickyHeaderHeight}px 0px -100% 0px` },
+        });
+      },
+      {
+        rootMargin: `-${stickyHeaderHeight}px 0px -80% 0px`,
+      },
     );
 
     document
