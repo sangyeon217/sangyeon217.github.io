@@ -1,6 +1,7 @@
 export { default as Heading } from "./Heading";
 export { default as OrderedList } from "./OrderedList";
 export { default as UnorderedList } from "./UnorderedList";
+export { default as Table } from "./Table";
 export { default as HorizontalRule } from "./HorizontalRule";
 export { default as Blockquote } from "./Blockquote";
 export { default as Image } from "./Image";

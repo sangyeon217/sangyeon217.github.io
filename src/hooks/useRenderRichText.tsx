@@ -12,6 +12,7 @@ import {
   HorizontalRule,
   OrderedList,
   UnorderedList,
+  Table,
   Link,
   Code,
 } from "./node";
@@ -67,6 +68,7 @@ const options: Options = {
 
       if (image) return <Image image={image} alt={description} />;
     },
+    [BLOCKS.TABLE]: (_node, children) => <Table>{children}</Table>,
     [INLINES.HYPERLINK]: (node, children) => (
       <Link
         href={node.data.uri as string}
