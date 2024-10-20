@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
 import Comment from "./Comment";
 import TableOfContents from "./TableOfContents";
 import useRenderRichText from "../../hooks/useRenderRichText";
