@@ -78,6 +78,14 @@ export const query = graphql`
             gatsbyImageData(width: 774)
             __typename
           }
+          ... on ContentfulCodeBlock {
+            contentful_id
+            language
+            code {
+              code
+            }
+            __typename
+          }
         }
       }
     }

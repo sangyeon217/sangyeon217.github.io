@@ -25,23 +25,11 @@ export const HEADERS = [
   BLOCKS.HEADING_2,
   BLOCKS.HEADING_3,
 ] as const;
-const CODE_METADATA_REGEX = /^language::(\w+)/;
 
 const options: Options = {
   renderMark: {
     [MARKS.CODE]: (text) => {
-      const isBlock = !!text && CODE_METADATA_REGEX.test(text.toString());
-
-      if (!isBlock) return <Code>{text}</Code>;
-      else
-        return (
-          <Code
-            isBlock
-            className={`language-${CODE_METADATA_REGEX.exec(text.toString())?.[1]}`}
-          >
-            {text.toString().replace(CODE_METADATA_REGEX, "").trimStart()}
-          </Code>
-        );
+      return <Code>{text}</Code>;
     },
   },
   renderNode: {
@@ -65,18 +53,32 @@ const options: Options = {
     ),
     [BLOCKS.HR]: () => <HorizontalRule />,
     [BLOCKS.QUOTE]: (_node, children) => <Blockquote>{children}</Blockquote>,
-    [BLOCKS.EMBEDDED_ASSET]: (node) => {
-      const { gatsbyImageData, description } = node.data.target;
-      const image = getImage(gatsbyImageData);
-
-      if (image) return <Image image={image} alt={description} />;
-    },
     [BLOCKS.TABLE]: (_node, children) => <Table>{children}</Table>,
     [BLOCKS.TABLE_ROW]: (_node, children) => <TableRow>{children}</TableRow>,
     [BLOCKS.TABLE_HEADER_CELL]: (_node, children) => (
       <TableHeaderCell>{children}</TableHeaderCell>
     ),
     [BLOCKS.TABLE_CELL]: (_node, children) => <TableCell>{children}</TableCell>,
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const { gatsbyImageData, description } = node.data.target;
+      const image = getImage(gatsbyImageData);
+
+      if (image) return <Image image={image} alt={description} />;
+    },
+    [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+      const { __typename } = node.data.target;
+      switch (__typename) {
+        case "ContentfulCodeBlock":
+          const { language, code } = node.data.target;
+          return (
+            <Code isBlock className={`language-${language}`}>
+              {code.code}
+            </Code>
+          );
+        default:
+          return null;
+      }
+    },
     [INLINES.HYPERLINK]: (node, children) => (
       <Link
         href={node.data.uri as string}
