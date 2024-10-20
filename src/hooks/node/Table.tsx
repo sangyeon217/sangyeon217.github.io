@@ -37,36 +37,21 @@ const TableComponent = styled.table`
   tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
   }
-
-  tr:hover {
-    color: #ffffff;
-    background-color: #5a9bd8;
-  }
-
-  th {
-    border: 1px solid #c0d6e4;
-    padding: 0.75rem;
-    min-width: 120px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-align: center;
-    color: #ffffff;
-    background-color: #4682b4;
-  }
-
-  td {
-    border: none;
-    box-shadow: inset 0 0 0 0.5px #c0d6e4;
-    padding: 0.75rem;
-    min-width: 120px;
-    text-align: center;
-  }
 `;
 
+const TableHeadComponent = styled.thead``;
+const TableBodyComponent = styled.tbody``;
+
 export default function Table({ children, ...props }: TableProps) {
+  const tableHead = children[0];
+  const tableBody = children.slice(1);
+
   return (
     <TableContainer>
-      <TableComponent {...props}>{children}</TableComponent>
+      <TableComponent {...props}>
+        <TableHeadComponent>{tableHead}</TableHeadComponent>
+        <TableBodyComponent>{tableBody}</TableBodyComponent>
+      </TableComponent>
     </TableContainer>
   );
 }

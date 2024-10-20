@@ -13,6 +13,9 @@ import {
   OrderedList,
   UnorderedList,
   Table,
+  TableHeaderCell,
+  TableRow,
+  TableCell,
   Link,
   Code,
 } from "./node";
@@ -69,6 +72,11 @@ const options: Options = {
       if (image) return <Image image={image} alt={description} />;
     },
     [BLOCKS.TABLE]: (_node, children) => <Table>{children}</Table>,
+    [BLOCKS.TABLE_ROW]: (_node, children) => <TableRow>{children}</TableRow>,
+    [BLOCKS.TABLE_HEADER_CELL]: (_node, children) => (
+      <TableHeaderCell>{children}</TableHeaderCell>
+    ),
+    [BLOCKS.TABLE_CELL]: (_node, children) => <TableCell>{children}</TableCell>,
     [INLINES.HYPERLINK]: (node, children) => (
       <Link
         href={node.data.uri as string}
