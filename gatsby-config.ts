@@ -1,4 +1,5 @@
 import type { GatsbyConfig } from "gatsby";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -56,6 +57,86 @@ const config: GatsbyConfig = {
       options: {
         trackingId: process.env.GOOGLE_ANALYTICS_ID,
         head: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allContentfulPost } }) => {
+              return allContentfulPost.edges.map((edge) => {
+                const plainTextContent = edge.node.content
+                  ? documentToPlainTextString(
+                      JSON.parse(edge.node.content.raw),
+                    ).slice(0, 300) + "..."
+                  : "";
+
+                // 허용되지 않는 제어 문자 제거 (ASCII 범위 0-31 중 탭(\t), 줄바꿈(\n), 캐리지 리턴(\r) 제외)
+                const refinedDescription =
+                  edge.node.description.description.replace(
+                    /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,
+                    "",
+                  );
+                const refinedContent = plainTextContent.replace(
+                  /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,
+                  "",
+                );
+
+                const categories = edge.node.category.map(
+                  (category: string) => ({
+                    category: category,
+                  }),
+                );
+
+                return Object.assign({}, edge.node, {
+                  title: edge.node.title,
+                  description: refinedDescription,
+                  date: edge.node.date,
+                  custom_elements: [
+                    { "content:encoded": refinedContent },
+                    ...categories,
+                  ],
+                  url: site.siteMetadata.siteUrl + "/" + edge.node.slug,
+                  guid: site.siteMetadata.siteUrl + "/" + edge.node.slug,
+                });
+              });
+            },
+            query: `
+              {
+                allContentfulPost(sort: { date: DESC }) {
+                  edges {
+                    node {
+                      title
+                      description {
+                        description
+                      }
+                      date
+                      content {
+                        raw
+                      }
+                      category
+                      slug
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "Sangyeon's Tech Blog",
+          },
+        ],
       },
     },
     "gatsby-plugin-image",
