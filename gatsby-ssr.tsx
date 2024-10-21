@@ -13,6 +13,10 @@ const HeadComponents = [
 
 const PostBodyComponents = [
   <script
+    key="clipboard"
+    src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"
+  ></script>,
+  <script
     key="buyMeACoffee"
     data-name="BMC-Widget"
     data-cfasync="false"

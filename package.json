@@ -19,6 +19,7 @@
     "@contentful/rich-text-types": "^16.8.3",
     "@egjs/react-infinitegrid": "^4.12.0",
     "babel-plugin-styled-components": "^2.1.4",
+    "clipboard": "^2.0.11",
     "dotenv": "^16.4.5",
     "gatsby": "^5.13.5",
     "gatsby-plugin-canonical-urls": "^5.13.1",
@@ -36,6 +37,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
+    "react-tooltip": "^5.28.0",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
