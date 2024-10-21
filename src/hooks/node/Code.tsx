@@ -131,6 +131,7 @@ export default function Code({
             color: "white",
             fontSize: "12px",
             backgroundColor: "#333",
+            zIndex: "10",
           }}
         />
         <BlockCode>
