@@ -1,6 +1,7 @@
 import {
   createClient,
   EntryFieldTypes,
+  type Asset,
   type Entry,
   type EntryCollection,
   type EntriesQueries,
@@ -36,6 +37,12 @@ export type PostSkeleton = {
 export type PostEntry = Entry<PostSkeleton>;
 export type PostCollection = EntryCollection<PostSkeleton>;
 export type CategoryItem = { name: string; count: number };
+
+export function getThumbnailUrl(thumbnail: EntryFieldTypes.AssetLink | unknown): string | null {
+  const thumbnailUrl = (thumbnail as Asset)?.fields?.file?.url;
+  if (!thumbnailUrl || typeof thumbnailUrl !== "string") return null;
+  return thumbnailUrl.startsWith("//") ? `https:${thumbnailUrl}` : thumbnailUrl;
+}
 
 export async function getCategories({
   preview = false,

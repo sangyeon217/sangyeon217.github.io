@@ -1,18 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { PostEntry } from "@/lib/contentful";
-import type { Asset } from "contentful";
-
-function getThumbUrl(post: PostEntry): string | null {
-  const asset = post.fields.thumbnail as Asset | undefined;
-  const fileUrl = asset?.fields?.file?.url;
-
-  if (typeof fileUrl === "string") {
-    return fileUrl.startsWith("http") ? fileUrl : `https:${fileUrl}`;
-  }
-
-  return null;
-}
+import { type PostEntry, getThumbnailUrl } from "@/lib/contentful";
 
 function formatDate(iso?: string) {
   if (!iso) return "";
@@ -28,7 +16,7 @@ type Props = { post: PostEntry };
 export default function PostItem({ post }: Props) {
   const { title, slug, description, publishedAt } = post.fields;
   const categories = (post.fields.category ?? []) as string[];
-  const thumbnailUrl = getThumbUrl(post);
+  const thumbnailUrl = getThumbnailUrl(post.fields.thumbnail);
 
   return (
     <article className="relative h-full rounded-xl border border-gray-200 bg-white overflow-hidden transition-all duration-200 shadow-sm hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300">
