@@ -44,6 +44,16 @@ export function getThumbnailUrl(thumbnail: EntryFieldTypes.AssetLink | unknown):
   return thumbnailUrl.startsWith("//") ? `https:${thumbnailUrl}` : thumbnailUrl;
 }
 
+export function formatPublishedAt(
+  publishedAt: string,
+  dateStyle: Intl.DateTimeFormatOptions["dateStyle"] = "medium"
+): string {
+  return new Date(publishedAt).toLocaleDateString("ko-KR", {
+    dateStyle,
+    timeZone: "Asia/Seoul",
+  });
+}
+
 export async function getCategories({
   preview = false,
 }: {

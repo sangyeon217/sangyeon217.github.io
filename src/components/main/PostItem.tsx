@@ -1,15 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type PostEntry, getThumbnailUrl } from "@/lib/contentful";
-
-function formatDate(iso?: string) {
-  if (!iso) return "";
-  return new Date(iso).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-}
+import { type PostEntry, getThumbnailUrl, formatPublishedAt } from "@/lib/contentful";
 
 type Props = { post: PostEntry };
 
@@ -72,7 +63,7 @@ export default function PostItem({ post }: Props) {
           </div>
 
           <time className="mt-3 block text-xs text-gray-500">
-            {formatDate(publishedAt as unknown as string)}
+            {formatPublishedAt(publishedAt as string)}
           </time>
         </div>
       </div>
