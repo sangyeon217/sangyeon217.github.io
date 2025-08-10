@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import type { CategoryItem } from "@/lib/contentful";
 
-export type CategoryItem = { name: string; count: number };
 type Props = { categories: CategoryItem[] };
 
 export default function Category({ categories }: Props) {
