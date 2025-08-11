@@ -62,7 +62,7 @@ export default function PostItem({ post }: Props) {
               : null}
           </div>
 
-          <time className="mt-3 block text-xs text-gray-500">
+          <time dateTime={publishedAt as string} className="mt-3 block text-xs text-gray-500">
             {formatPublishedAt(publishedAt as string)}
           </time>
         </div>

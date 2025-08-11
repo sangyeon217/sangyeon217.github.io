@@ -1,9 +1,37 @@
+"use client";
+
 import Link from "next/link";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { useEffect, useRef } from "react";
 
 export default function Header() {
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = headerRef.current;
+    if (!element) return;
+
+    const setHeaderHeight = () => {
+      const headerHeight = Math.ceil(element.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--header-h", `${headerHeight}px`);
+    };
+
+    setHeaderHeight();
+    const observer = new ResizeObserver(setHeaderHeight);
+    observer.observe(element);
+    window.addEventListener("resize", setHeaderHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", setHeaderHeight);
+    };
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200"
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link
           href="/"

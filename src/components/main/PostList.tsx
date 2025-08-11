@@ -1,9 +1,7 @@
 import type { PostEntry } from "@/lib/contentful";
 import PostItem from "./PostItem";
 
-type PostListProps = {
-  posts: PostEntry[];
-};
+type PostListProps = { posts: PostEntry[] };
 
 export default function PostList({ posts }: PostListProps) {
   if (!posts || posts.length === 0) {
