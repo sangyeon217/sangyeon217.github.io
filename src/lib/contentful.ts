@@ -11,9 +11,10 @@ const space = process.env.CONTENTFUL_SPACE_ID!;
 const environment = process.env.CONTENTFUL_ENVIRONMENT || "master";
 const deliveryToken = process.env.CONTENTFUL_DELIVERY_TOKEN!;
 const previewToken = process.env.CONTENTFUL_PREVIEW_TOKEN!;
+const isPreviewMode = process.env.CONTENTFUL_PREVIEW_ENABLED === "true";
 const contentType = "post" as const;
 
-const getClient = ({ preview = false }: { preview?: boolean }) =>
+const getClient = (preview: boolean = isPreviewMode) =>
   createClient({
     space,
     environment,
@@ -54,12 +55,8 @@ export function formatPublishedAt(
   });
 }
 
-export async function getCategories({
-  preview = false,
-}: {
-  preview?: boolean;
-}): Promise<CategoryItem[]> {
-  const client = getClient({ preview });
+export async function getCategories(): Promise<CategoryItem[]> {
+  const client = getClient();
 
   const response = await client.getEntries<PostSkeleton>({
     content_type: contentType,
@@ -85,14 +82,13 @@ export async function getPosts({
   category = "All",
   page = 1,
   size = 20,
-  preview = false,
 }: {
   category?: string;
   page?: number;
   size?: number;
   preview?: boolean;
 }): Promise<PostCollection> {
-  const client = getClient({ preview });
+  const client = getClient();
 
   const baseQuery: EntriesQueries<PostSkeleton, undefined> = {
     content_type: contentType,
@@ -119,14 +115,8 @@ export async function getPosts({
   return client.getEntries<PostSkeleton>(query);
 }
 
-export async function getPostBySlug({
-  slug,
-  preview = false,
-}: {
-  slug: string;
-  preview?: boolean;
-}): Promise<PostEntry | null> {
-  const client = getClient({ preview });
+export async function getPostBySlug(slug: string): Promise<PostEntry | null> {
+  const client = getClient();
 
   const response = await client.getEntries<PostSkeleton>({
     content_type: contentType,

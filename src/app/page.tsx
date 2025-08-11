@@ -12,8 +12,8 @@ export default async function Home({ searchParams }: Props) {
   const { category = "All" } = (await searchParams) ?? {};
 
   const [categories, posts] = await Promise.all([
-    getCategories({ preview: false }),
-    getPosts({ category, page: 1, size: 20, preview: false }),
+    getCategories(),
+    getPosts({ category, page: 1, size: 20 }),
   ]);
 
   return (

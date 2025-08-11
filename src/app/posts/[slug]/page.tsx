@@ -10,7 +10,7 @@ export const revalidate = 60; // ISR: 60초마다 재검증
 
 export default async function Post({ params }: Props) {
   const { slug } = await params;
-  const post = await getPostBySlug({ slug, preview: false });
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
