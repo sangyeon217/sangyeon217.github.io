@@ -3,8 +3,6 @@ import Introduction from "@/components/main/Introduction";
 import Category from "@/components/main/Category";
 import PostList from "@/components/main/PostList";
 
-export const revalidate = 60; // ISR: 60초마다 재검증
-
 type SearchParams = { category?: string };
 type Props = { searchParams?: Promise<SearchParams> };
 
