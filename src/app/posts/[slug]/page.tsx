@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/contentful";
+import { getPosts, getPostBySlug } from "@/lib/contentful";
 import PostHead from "@/components/post/PostHead";
 import PostBody from "@/components/post/PostBody";
 
 type Params = { slug: string };
 type Props = { params: Promise<Params> };
+
+export async function generateStaticParams() {
+  const posts = await getPosts({ category: "All", page: 1, size: 1000 });
+  return posts.items.map((post) => ({ slug: post.fields.slug }));
+}
 
 export default async function Post({ params }: Props) {
   const { slug } = await params;
