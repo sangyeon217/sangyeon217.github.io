@@ -13,6 +13,7 @@ import rehypeSanitize from "rehype-sanitize";
 import { defaultSchema } from "hast-util-sanitize";
 import { useClipboard } from "@/hooks/useClipboard";
 import TableOfContents from "./TableOfContents";
+import Comment from "./Comment";
 
 const CODE_LANG_LABEL_MAP: Record<string, string> = {
   typescript: "TS",
@@ -204,6 +205,10 @@ export default function PostBody({ markdown }: Props) {
           >
             {markdown}
           </ReactMarkdown>
+          <hr className="my-12" />
+          <section id="comments" aria-label="Comments" className="not-prose mt-8">
+            <Comment />
+          </section>
         </article>
         <aside className="hidden lg:block">
           <TableOfContents />
