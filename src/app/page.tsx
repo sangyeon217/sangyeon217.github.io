@@ -3,21 +3,16 @@ import Introduction from "@/components/main/Introduction";
 import Category from "@/components/main/Category";
 import PostList from "@/components/main/PostList";
 
-type SearchParams = { category?: string };
-type Props = { searchParams?: Promise<SearchParams> };
-
-export default async function Home({ searchParams }: Props) {
-  const { category = "All" } = (await searchParams) ?? {};
-
+export default async function HomePage() {
   const [categories, posts] = await Promise.all([
     getCategories(),
-    getPosts({ category, page: 1, size: 20 }),
+    getPosts({ category: "All", page: 1, size: 20 }),
   ]);
 
   return (
     <main className="mx-auto max-w-6xl p-6">
       <Introduction />
-      <Category categories={categories} />
+      <Category categories={categories} currentCategory="All" />
       <PostList posts={posts.items} />
     </main>
   );

@@ -1,21 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import type { CategoryItem } from "@/lib/contentful";
 
-type Props = { categories: CategoryItem[] };
+type Props = { categories: CategoryItem[]; currentCategory: string };
 
-export default function Category({ categories }: Props) {
-  const searchParams = useSearchParams();
-  const current = searchParams.get("category") || "All";
-
+export default function Category({ categories, currentCategory }: Props) {
   return (
     <nav className="mb-4 flex flex-wrap gap-2">
       {categories.map((category) => {
-        const selected = category.name === current;
+        const selected = category.name === currentCategory;
         const href =
-          category.name === "All" ? "/" : `/?category=${encodeURIComponent(category.name)}`;
+          category.name === "All" ? "/" : `/category/${encodeURIComponent(category.name)}`;
         return (
           <Link
             key={category.name}
